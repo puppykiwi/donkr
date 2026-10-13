@@ -19,18 +19,27 @@ class DonkrChatManager {
 
   // --- Match Modal Trigger ---
   showMatchModal(donkey, isSuper = false) {
-    const userProfile = window.DonkrStorage.getProfile();
+    const userProfile = window.DonkrStorage ? window.DonkrStorage.getProfile() : {};
     const modal = document.getElementById('matchModal');
     if (!modal) return;
 
-    window.DonkrSound.playMatchFanfare();
+    if (window.DonkrSound) window.DonkrSound.playMatchFanfare();
 
-    modal.querySelector('#matchedDonkeyName').textContent = donkey.name;
-    modal.querySelector('#matchedUserImg').src = userProfile.avatar || 'assets/avatars/user-default.svg';
-    modal.querySelector('#matchedDonkeyImg').src = donkey.avatar;
-    modal.querySelector('#matchSubtext').textContent = isSuper
-      ? `You sent a Super Bray and ${donkey.name} brayed back with joy!`
-      : `You and ${donkey.name} have mutual equine interest!`;
+    const nameEl = document.getElementById('matchedDonkeyName') || modal.querySelector('#matchedDonkeyName');
+    if (nameEl) nameEl.textContent = donkey.name;
+
+    const userImg = document.getElementById('matchedUserImg') || modal.querySelector('#matchedUserImg');
+    if (userImg) userImg.src = (userProfile && userProfile.avatar) || 'assets/avatars/user-default.svg';
+
+    const donkeyImg = document.getElementById('matchedDonkeyImg') || modal.querySelector('#matchedDonkeyImg');
+    if (donkeyImg) donkeyImg.src = donkey.avatar;
+
+    const subtextEl = document.getElementById('matchSubtext') || modal.querySelector('#matchSubtext');
+    if (subtextEl) {
+      subtextEl.textContent = isSuper
+        ? `You sent a Super Bray and ${donkey.name} brayed back with joy!`
+        : `You and ${donkey.name} have mutual equine interest!`;
+    }
 
     // Confetti particles
     this.triggerCarrotConfetti();
@@ -38,18 +47,22 @@ class DonkrChatManager {
     modal.classList.add('active');
 
     // Button actions
-    const sendBrayBtn = modal.querySelector('#btnMatchChat');
-    const keepBrowsingBtn = modal.querySelector('#btnMatchKeepBrowsing');
+    const sendBrayBtn = document.getElementById('btnMatchChat') || modal.querySelector('#btnMatchChat');
+    const keepBrowsingBtn = document.getElementById('btnMatchKeepBrowsing') || modal.querySelector('#btnMatchKeepBrowsing');
 
-    sendBrayBtn.onclick = () => {
-      modal.classList.remove('active');
-      this.openChat(donkey.id);
-    };
+    if (sendBrayBtn) {
+      sendBrayBtn.onclick = () => {
+        modal.classList.remove('active');
+        this.openChat(donkey.id);
+      };
+    }
 
-    keepBrowsingBtn.onclick = () => {
-      modal.classList.remove('active');
-      window.DonkrSound.playPop(400);
-    };
+    if (keepBrowsingBtn) {
+      keepBrowsingBtn.onclick = () => {
+        modal.classList.remove('active');
+        if (window.DonkrSound) window.DonkrSound.playPop(400);
+      };
+    }
   }
 
   triggerCarrotConfetti() {
