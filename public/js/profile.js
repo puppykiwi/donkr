@@ -9,57 +9,81 @@ class DonkrProfileManager {
   }
 
   init() {
-    this.populateProfileForm();
-    this.populateFiltersForm();
-    this.bindEvents();
-    this.updateStorageStats();
+    try {
+      this.populateProfileForm();
+      this.populateFiltersForm();
+      this.bindEvents();
+      this.updateStorageStats();
+    } catch (err) {
+      console.error('Error initializing ProfileManager:', err);
+    }
+  }
+
+  // Safe DOM helper
+  _setTxt(id, val) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val;
+  }
+
+  _setSrc(id, val) {
+    const el = document.getElementById(id);
+    if (el) el.src = val;
+  }
+
+  _setVal(id, val) {
+    const el = document.getElementById(id);
+    if (el) el.value = val;
   }
 
   populateProfileForm() {
-    const profile = window.DonkrStorage.getProfile();
+    const profile = window.DonkrStorage ? window.DonkrStorage.getProfile() : null;
     if (!profile) return;
 
-    // View elements
-    document.getElementById('profilePreviewAvatar').src = profile.avatar || '/assets/avatars/user-default.svg';
-    document.getElementById('profilePreviewName').textContent = profile.name || 'Unnamed Jack';
-    document.getElementById('profilePreviewAge').textContent = profile.age || '5';
-    document.getElementById('profilePreviewBreed').textContent = profile.breed || 'Standard Donkey';
-    document.getElementById('profilePreviewBio').textContent = profile.bio || 'Grazing quietly...';
-    document.getElementById('profilePreviewSnack').textContent = profile.favoriteSnack || 'Carrots 🥕';
-    document.getElementById('profilePreviewEars').textContent = `${profile.earLengthCm || 35} cm`;
-    document.getElementById('profilePreviewBray').textContent = `${profile.brayVolumeDb || 95} dB`;
+    // View elements (safe)
+    this._setSrc('profilePreviewAvatar', profile.avatar || 'assets/avatars/user-default.svg');
+    this._setTxt('profilePreviewName', profile.name || 'Barnaby Jr.');
+    this._setTxt('profilePreviewAge', profile.age || '5');
+    this._setTxt('profilePreviewBreed', profile.breed || 'Standard Donkey');
+    this._setTxt('profilePreviewBio', profile.bio || 'Grazing quietly in the pasture...');
+    this._setTxt('profilePreviewSnack', profile.favoriteSnack || 'Carrots 🥕');
+    this._setTxt('profilePreviewEars', `${profile.earLengthCm || 35} cm`);
+    this._setTxt('profilePreviewBray', `${profile.brayVolumeDb || 95} dB`);
 
-    // Form inputs
-    document.getElementById('inputProfileName').value = profile.name || '';
-    document.getElementById('inputProfileAge').value = profile.age || 5;
-    document.getElementById('selectProfileGender').value = profile.gender || 'Jack';
-    document.getElementById('selectProfileBreed').value = profile.breed || 'Standard American Donkey';
-    document.getElementById('inputProfileLocation').value = profile.location || 'Sunny Pasture';
-    document.getElementById('inputProfileSnack').value = profile.favoriteSnack || 'Carrots 🥕';
-    document.getElementById('inputProfileBio').value = profile.bio || '';
-    document.getElementById('inputProfileEarLength').value = profile.earLengthCm || 35;
-    document.getElementById('valProfileEarLength').textContent = `${profile.earLengthCm || 35} cm`;
-    document.getElementById('inputProfileBrayVolume').value = profile.brayVolumeDb || 95;
-    document.getElementById('valProfileBrayVolume').textContent = `${profile.brayVolumeDb || 95} dB`;
+    // Form inputs (safe)
+    this._setVal('inputProfileName', profile.name || '');
+    this._setVal('inputProfileAge', profile.age || 5);
+    this._setVal('selectProfileGender', profile.gender || 'Jack');
+    this._setVal('selectProfileBreed', profile.breed || 'Standard American Donkey');
+    this._setVal('inputProfileLocation', profile.location || 'Sunny Pasture');
+    this._setVal('inputProfileSnack', profile.favoriteSnack || 'Carrots 🥕');
+    this._setVal('inputProfileBio', profile.bio || '');
+    this._setVal('inputProfileEarLength', profile.earLengthCm || 35);
+    this._setTxt('valProfileEarLength', `${profile.earLengthCm || 35} cm`);
+    this._setVal('inputProfileBrayVolume', profile.brayVolumeDb || 95);
+    this._setTxt('valProfileBrayVolume', `${profile.brayVolumeDb || 95} dB`);
   }
 
   populateFiltersForm() {
-    const settings = window.DonkrStorage.getSettings();
+    const settings = window.DonkrStorage ? window.DonkrStorage.getSettings() : {};
 
     const maxDist = settings.maxDistance || 30;
-    document.getElementById('filterDistance').value = maxDist;
-    document.getElementById('valFilterDistance').textContent = `${maxDist} miles`;
+    this._setVal('filterDistance', maxDist);
+    this._setTxt('valFilterDistance', `${maxDist} miles`);
 
     const minEar = settings.minEarLength || 25;
-    document.getElementById('filterEarLength').value = minEar;
-    document.getElementById('valFilterEarLength').textContent = `${minEar} cm`;
+    this._setVal('filterEarLength', minEar);
+    this._setTxt('valFilterEarLength', `${minEar} cm`);
 
-    document.getElementById('filterBreed').value = settings.selectedBreed || 'All';
-    document.getElementById('filterVerifiedOnly').checked = settings.showOnlyVerified || false;
+    this._setVal('filterBreed', settings.selectedBreed || 'All');
+
+    const filterVerified = document.getElementById('filterVerifiedOnly');
+    if (filterVerified) {
+      filterVerified.checked = settings.showOnlyVerified || false;
+    }
 
     // Sound toggle state
     const soundToggle = document.getElementById('soundToggleBtn');
-    if (soundToggle) {
+    if (soundToggle && window.DonkrSound) {
       soundToggle.classList.toggle('muted', !window.DonkrSound.enabled);
     }
   }
@@ -67,87 +91,118 @@ class DonkrProfileManager {
   bindEvents() {
     // Ear length slider in profile
     const profileEarInput = document.getElementById('inputProfileEarLength');
-    profileEarInput.addEventListener('input', (e) => {
-      document.getElementById('valProfileEarLength').textContent = `${e.target.value} cm`;
-    });
+    if (profileEarInput) {
+      profileEarInput.addEventListener('input', (e) => {
+        this._setTxt('valProfileEarLength', `${e.target.value} cm`);
+      });
+    }
 
     // Bray volume slider in profile
     const profileBrayInput = document.getElementById('inputProfileBrayVolume');
-    profileBrayInput.addEventListener('input', (e) => {
-      document.getElementById('valProfileBrayVolume').textContent = `${e.target.value} dB`;
-    });
+    if (profileBrayInput) {
+      profileBrayInput.addEventListener('input', (e) => {
+        this._setTxt('valProfileBrayVolume', `${e.target.value} dB`);
+      });
+    }
 
     // Filter distance slider
     const filterDistInput = document.getElementById('filterDistance');
-    filterDistInput.addEventListener('input', (e) => {
-      document.getElementById('valFilterDistance').textContent = `${e.target.value} miles`;
-    });
+    if (filterDistInput) {
+      filterDistInput.addEventListener('input', (e) => {
+        this._setTxt('valFilterDistance', `${e.target.value} miles`);
+      });
+    }
 
     // Filter ear length slider
     const filterEarInput = document.getElementById('filterEarLength');
-    filterEarInput.addEventListener('input', (e) => {
-      document.getElementById('valFilterEarLength').textContent = `${e.target.value} cm`;
-    });
+    if (filterEarInput) {
+      filterEarInput.addEventListener('input', (e) => {
+        this._setTxt('valFilterEarLength', `${e.target.value} cm`);
+      });
+    }
 
     // Save Profile Form
     const profileForm = document.getElementById('formEditProfile');
-    profileForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const current = window.DonkrStorage.getProfile() || {};
-      const updated = {
-        ...current,
-        name: document.getElementById('inputProfileName').value.trim() || 'Barnaby Jr.',
-        age: parseInt(document.getElementById('inputProfileAge').value, 10) || 5,
-        gender: document.getElementById('selectProfileGender').value,
-        breed: document.getElementById('selectProfileBreed').value,
-        location: document.getElementById('inputProfileLocation').value.trim() || 'Meadow',
-        favoriteSnack: document.getElementById('inputProfileSnack').value.trim() || 'Carrots 🥕',
-        bio: document.getElementById('inputProfileBio').value.trim(),
-        earLengthCm: parseInt(document.getElementById('inputProfileEarLength').value, 10) || 35,
-        brayVolumeDb: parseInt(document.getElementById('inputProfileBrayVolume').value, 10) || 95
-      };
+    if (profileForm) {
+      profileForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const current = (window.DonkrStorage && window.DonkrStorage.getProfile()) || {};
+        const nameInput = document.getElementById('inputProfileName');
+        const ageInput = document.getElementById('inputProfileAge');
+        const genderInput = document.getElementById('selectProfileGender');
+        const breedInput = document.getElementById('selectProfileBreed');
+        const locInput = document.getElementById('inputProfileLocation');
+        const snackInput = document.getElementById('inputProfileSnack');
+        const bioInput = document.getElementById('inputProfileBio');
+        const earInput = document.getElementById('inputProfileEarLength');
+        const brayInput = document.getElementById('inputProfileBrayVolume');
 
-      window.DonkrStorage.saveProfile(updated);
-      this.populateProfileForm();
-      this.updateStorageStats();
-      window.DonkrSound.playPop(600);
+        const updated = {
+          ...current,
+          name: (nameInput ? nameInput.value.trim() : '') || 'Barnaby Jr.',
+          age: parseInt(ageInput ? ageInput.value : 5, 10) || 5,
+          gender: genderInput ? genderInput.value : 'Jack',
+          breed: breedInput ? breedInput.value : 'Standard American Donkey',
+          location: (locInput ? locInput.value.trim() : '') || 'Meadow',
+          favoriteSnack: (snackInput ? snackInput.value.trim() : '') || 'Carrots 🥕',
+          bio: bioInput ? bioInput.value.trim() : '',
+          earLengthCm: parseInt(earInput ? earInput.value : 35, 10) || 35,
+          brayVolumeDb: parseInt(brayInput ? brayInput.value : 95, 10) || 95
+        };
 
-      // Flash notification
-      const toast = document.getElementById('toastNotification');
-      if (toast) {
-        toast.textContent = 'Profile updated successfully! 🥕';
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 2500);
-      }
+        if (window.DonkrStorage) {
+          window.DonkrStorage.saveProfile(updated);
+        }
+        this.populateProfileForm();
+        this.updateStorageStats();
+        if (window.DonkrSound) window.DonkrSound.playPop(600);
 
-      this.onProfileUpdate(updated);
-    });
+        // Flash notification
+        const toast = document.getElementById('toastNotification');
+        if (toast) {
+          toast.textContent = 'Profile updated successfully! 🥕';
+          toast.classList.add('show');
+          setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+
+        this.onProfileUpdate(updated);
+      });
+    }
 
     // Apply Filters Form
     const filtersForm = document.getElementById('formDiscoveryFilters');
-    filtersForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const settings = {
-        soundEnabled: window.DonkrSound.enabled,
-        maxDistance: parseInt(document.getElementById('filterDistance').value, 10),
-        minEarLength: parseInt(document.getElementById('filterEarLength').value, 10),
-        selectedBreed: document.getElementById('filterBreed').value,
-        showOnlyVerified: document.getElementById('filterVerifiedOnly').checked
-      };
+    if (filtersForm) {
+      filtersForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const distInput = document.getElementById('filterDistance');
+        const earInput = document.getElementById('filterEarLength');
+        const breedInput = document.getElementById('filterBreed');
+        const verInput = document.getElementById('filterVerifiedOnly');
 
-      window.DonkrStorage.saveSettings(settings);
-      this.updateStorageStats();
-      window.DonkrSound.playPop(550);
+        const settings = {
+          soundEnabled: window.DonkrSound ? window.DonkrSound.enabled : true,
+          maxDistance: parseInt(distInput ? distInput.value : 50, 10),
+          minEarLength: parseInt(earInput ? earInput.value : 20, 10),
+          selectedBreed: breedInput ? breedInput.value : 'All',
+          showOnlyVerified: verInput ? verInput.checked : false
+        };
 
-      const toast = document.getElementById('toastNotification');
-      if (toast) {
-        toast.textContent = 'Pasture filters applied! 🌾';
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 2500);
-      }
+        if (window.DonkrStorage) {
+          window.DonkrStorage.saveSettings(settings);
+        }
+        this.updateStorageStats();
+        if (window.DonkrSound) window.DonkrSound.playPop(550);
 
-      this.onFiltersUpdate(settings);
-    });
+        const toast = document.getElementById('toastNotification');
+        if (toast) {
+          toast.textContent = 'Pasture filters applied! 🌾';
+          toast.classList.add('show');
+          setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+
+        this.onFiltersUpdate(settings);
+      });
+    }
 
     // Avatar Selection Buttons
     document.querySelectorAll('.avatar-choice-btn').forEach(btn => {
@@ -156,12 +211,14 @@ class DonkrProfileManager {
         document.querySelectorAll('.avatar-choice-btn').forEach(b => b.classList.remove('selected'));
         btn.classList.add('selected');
 
-        const profile = window.DonkrStorage.getProfile() || {};
-        profile.avatar = avatarSrc;
-        window.DonkrStorage.saveProfile(profile);
+        if (window.DonkrStorage) {
+          const profile = window.DonkrStorage.getProfile() || {};
+          profile.avatar = avatarSrc;
+          window.DonkrStorage.saveProfile(profile);
+        }
 
-        document.getElementById('profilePreviewAvatar').src = avatarSrc;
-        window.DonkrSound.playPop(480);
+        this._setSrc('profilePreviewAvatar', avatarSrc);
+        if (window.DonkrSound) window.DonkrSound.playPop(480);
       });
     });
 
@@ -170,11 +227,11 @@ class DonkrProfileManager {
     if (btnResetData) {
       btnResetData.addEventListener('click', () => {
         if (confirm('Are you sure you want to reset all likes, matches, and chats?')) {
-          window.DonkrStorage.resetAll();
+          if (window.DonkrStorage) window.DonkrStorage.resetAll();
           this.populateProfileForm();
           this.populateFiltersForm();
           this.updateStorageStats();
-          window.DonkrSound.playBray();
+          if (window.DonkrSound) window.DonkrSound.playBray();
           alert('Pasture memory cleared! Fresh herd loaded.');
           window.location.reload();
         }
@@ -185,6 +242,7 @@ class DonkrProfileManager {
     const btnExportData = document.getElementById('btnExportData');
     if (btnExportData) {
       btnExportData.addEventListener('click', () => {
+        if (!window.DonkrStorage) return;
         const fullBackup = {
           profile: window.DonkrStorage.getProfile(),
           likes: window.DonkrStorage.getLikes(),
@@ -205,6 +263,7 @@ class DonkrProfileManager {
   }
 
   updateStorageStats() {
+    if (!window.DonkrStorage) return;
     const bytes = window.DonkrStorage.getStorageUsageBytes();
     const likesCount = window.DonkrStorage.getLikes().length;
     const matchesCount = window.DonkrStorage.getMatches().length;

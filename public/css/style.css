@@ -229,7 +229,8 @@ body {
   flex: 1;
   position: relative;
   width: 100%;
-  max-height: calc(100% - 90px);
+  height: calc(100% - 90px);
+  min-height: 360px;
   margin-bottom: 10px;
 }
 
@@ -1507,3 +1508,4 @@ body {
   transform: translateX(-50%) translateY(0);
   opacity: 1;
 }
+

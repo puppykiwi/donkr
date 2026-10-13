@@ -135,12 +135,14 @@ class DonkrCardManager {
     // Toggle info drawer
     const infoBtn = card.querySelector('.card-info-btn');
     const drawer = card.querySelector('.card-details-drawer');
-    infoBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const isOpen = drawer.classList.toggle('open');
-      infoBtn.classList.toggle('active', isOpen);
-      window.DonkrSound.playPop(520);
-    });
+    if (infoBtn && drawer) {
+      infoBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = drawer.classList.toggle('open');
+        infoBtn.classList.toggle('active', isOpen);
+        if (window.DonkrSound) window.DonkrSound.playPop(520);
+      });
+    }
 
     return card;
   }
@@ -345,3 +347,4 @@ class DonkrCardManager {
 }
 
 window.DonkrCardManager = DonkrCardManager;
+

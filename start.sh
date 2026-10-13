@@ -29,3 +29,4 @@ else
     echo "Warning: PID file not found, checking process status..."
     ps aux | grep nginx | grep donkr || true
 fi
+

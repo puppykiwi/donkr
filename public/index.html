@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Donkr — The #1 Dating App for Donkeys</title>
-  <link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
@@ -17,7 +17,7 @@
     <!-- App Header -->
     <header class="app-header">
       <div class="brand-wrapper" id="brandHeader">
-        <img src="/assets/logo.svg" alt="Donkr Logo" class="brand-logo-img" />
+        <img src="assets/logo.svg" alt="Donkr Logo" class="brand-logo-img" />
         <span class="brand-title">donkr</span>
       </div>
 
@@ -192,16 +192,18 @@
       <section class="app-view" id="viewProfile">
         <!-- Profile Preview Card -->
         <div class="profile-card-preview">
-          <img src="/assets/avatars/user-default.svg" id="profilePreviewAvatar" class="profile-avatar-large" alt="My Profile Avatar" />
+          <img src="assets/avatars/user-default.svg" id="profilePreviewAvatar" class="profile-avatar-large" alt="My Profile Avatar" />
           <div class="profile-preview-meta">
             <div class="preview-name-row">
               <span class="preview-name" id="profilePreviewName">Barnaby Jr.</span>
               <span class="preview-age" id="profilePreviewAge">5</span>
             </div>
             <div class="preview-breed" id="profilePreviewBreed">Standard Donkey</div>
+            <p class="preview-bio" id="profilePreviewBio" style="font-size: 12.5px; color: #475569; margin: 4px 0 6px; line-height: 1.35;">Grazing quietly in the pasture...</p>
             <div class="preview-stats-bar">
               <span class="stat-pill" title="Ear Length">👂 <span id="profilePreviewEars">37 cm</span></span>
               <span class="stat-pill" title="Bray Volume">📢 <span id="profilePreviewBray">98 dB</span></span>
+              <span class="stat-pill" title="Favorite Snack"><span id="profilePreviewSnack">Carrots 🥕</span></span>
             </div>
           </div>
         </div>
@@ -274,23 +276,23 @@
             <div class="form-group">
               <label>Choose Avatar Style</label>
               <div class="avatar-selection-grid">
-                <button type="button" class="avatar-choice-btn selected" data-avatar="/assets/avatars/user-default.svg" title="Dapper Bowtie">
-                  <img src="/assets/avatars/user-default.svg" alt="Default" />
+                <button type="button" class="avatar-choice-btn selected" data-avatar="assets/avatars/user-default.svg" title="Dapper Bowtie">
+                  <img src="assets/avatars/user-default.svg" alt="Default" />
                 </button>
-                <button type="button" class="avatar-choice-btn" data-avatar="/assets/avatars/fernando.svg" title="Spanish Rose">
-                  <img src="/assets/avatars/fernando.svg" alt="Fernando" />
+                <button type="button" class="avatar-choice-btn" data-avatar="assets/avatars/fernando.svg" title="Spanish Rose">
+                  <img src="assets/avatars/fernando.svg" alt="Fernando" />
                 </button>
-                <button type="button" class="avatar-choice-btn" data-avatar="/assets/avatars/penelope.svg" title="Daisy Flower">
-                  <img src="/assets/avatars/penelope.svg" alt="Penelope" />
+                <button type="button" class="avatar-choice-btn" data-avatar="assets/avatars/penelope.svg" title="Daisy Flower">
+                  <img src="assets/avatars/penelope.svg" alt="Penelope" />
                 </button>
-                <button type="button" class="avatar-choice-btn" data-avatar="/assets/avatars/barnaby.svg" title="French Beret & Dreads">
-                  <img src="/assets/avatars/barnaby.svg" alt="Barnaby" />
+                <button type="button" class="avatar-choice-btn" data-avatar="assets/avatars/barnaby.svg" title="French Beret & Dreads">
+                  <img src="assets/avatars/barnaby.svg" alt="Barnaby" />
                 </button>
-                <button type="button" class="avatar-choice-btn" data-avatar="/assets/avatars/jasper.svg" title="Cool Sunglasses">
-                  <img src="/assets/avatars/jasper.svg" alt="Jasper" />
+                <button type="button" class="avatar-choice-btn" data-avatar="assets/avatars/jasper.svg" title="Cool Sunglasses">
+                  <img src="assets/avatars/jasper.svg" alt="Jasper" />
                 </button>
-                <button type="button" class="avatar-choice-btn" data-avatar="/assets/avatars/daisy.svg" title="Straw Hat">
-                  <img src="/assets/avatars/daisy.svg" alt="Daisy" />
+                <button type="button" class="avatar-choice-btn" data-avatar="assets/avatars/daisy.svg" title="Straw Hat">
+                  <img src="assets/avatars/daisy.svg" alt="Daisy" />
                 </button>
               </div>
             </div>
@@ -411,7 +413,7 @@
       <p class="match-subtext" id="matchSubtext">You and <strong id="matchedDonkeyName">Daisy</strong> brayed at each other!</p>
 
       <div class="match-avatars-pair">
-        <img src="/assets/avatars/user-default.svg" id="matchedUserImg" class="avatar-circle-match avatar-user-match" alt="You" />
+        <img src="assets/avatars/user-default.svg" id="matchedUserImg" class="avatar-circle-match avatar-user-match" alt="You" />
         <div class="heart-center-pulse">💚</div>
         <img src="" id="matchedDonkeyImg" class="avatar-circle-match avatar-donkey-match" alt="Match" />
       </div>
@@ -424,12 +426,12 @@
   </div>
 
   <!-- Scripts -->
-  <script src="/js/donkeys.js"></script>
-  <script src="/js/sound.js"></script>
-  <script src="/js/storage.js"></script>
-  <script src="/js/cards.js"></script>
-  <script src="/js/chat.js"></script>
-  <script src="/js/profile.js"></script>
-  <script src="/js/app.js"></script>
+  <script src="js/donkeys.js"></script>
+  <script src="js/sound.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/cards.js"></script>
+  <script src="js/chat.js"></script>
+  <script src="js/profile.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>

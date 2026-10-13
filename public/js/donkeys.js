@@ -21,7 +21,7 @@ window.FALLBACK_DONKEYS = [
       "No Carts On Sundays \ud83d\uded1",
       "Romantic \ud83c\udf77"
     ],
-    "avatar": "/assets/avatars/barnaby.svg",
+    "avatar": "assets/avatars/barnaby.svg",
     "verified": true,
     "matchProbability": 0.95,
     "chatPersonality": {
@@ -64,7 +64,7 @@ window.FALLBACK_DONKEYS = [
       "Flower In Ear \ud83c\udf38",
       "Sassy \ud83d\udc85"
     ],
-    "avatar": "/assets/avatars/penelope.svg",
+    "avatar": "assets/avatars/penelope.svg",
     "verified": true,
     "matchProbability": 0.88,
     "chatPersonality": {
@@ -106,7 +106,7 @@ window.FALLBACK_DONKEYS = [
       "Protective \ud83d\udee1\ufe0f",
       "Salt Lick Connoisseur \ud83e\uddc2"
     ],
-    "avatar": "/assets/avatars/fernando.svg",
+    "avatar": "assets/avatars/fernando.svg",
     "verified": true,
     "matchProbability": 0.92,
     "chatPersonality": {
@@ -147,7 +147,7 @@ window.FALLBACK_DONKEYS = [
       "Straw Hat Chic \ud83d\udc52",
       "Sweetheart \ud83c\udf6f"
     ],
-    "avatar": "/assets/avatars/daisy.svg",
+    "avatar": "assets/avatars/daisy.svg",
     "verified": true,
     "matchProbability": 0.9,
     "chatPersonality": {
@@ -188,7 +188,7 @@ window.FALLBACK_DONKEYS = [
       "Watermelon Smasher \ud83c\udf49",
       "Gentle Giant \ud83e\uddf8"
     ],
-    "avatar": "/assets/avatars/jasper.svg",
+    "avatar": "assets/avatars/jasper.svg",
     "verified": true,
     "matchProbability": 0.85,
     "chatPersonality": {
@@ -229,7 +229,7 @@ window.FALLBACK_DONKEYS = [
       "Desert Queen \ud83c\udfdc\ufe0f",
       "Zero Saddles \ud83d\udeab"
     ],
-    "avatar": "/assets/avatars/clementine.svg",
+    "avatar": "assets/avatars/clementine.svg",
     "verified": true,
     "matchProbability": 0.82,
     "chatPersonality": {
@@ -270,7 +270,7 @@ window.FALLBACK_DONKEYS = [
       "Avant-Garde Bray \ud83c\udfba",
       "Keep Pastures Weird \ud83c\udf08"
     ],
-    "avatar": "/assets/avatars/ziggy.svg",
+    "avatar": "assets/avatars/ziggy.svg",
     "verified": false,
     "matchProbability": 0.91,
     "chatPersonality": {
@@ -311,7 +311,7 @@ window.FALLBACK_DONKEYS = [
       "Citrus Lover \ud83c\udf4a",
       "Dramatic \ud83c\udfad"
     ],
-    "avatar": "/assets/avatars/bella.svg",
+    "avatar": "assets/avatars/bella.svg",
     "verified": true,
     "matchProbability": 0.86,
     "chatPersonality": {
@@ -352,7 +352,7 @@ window.FALLBACK_DONKEYS = [
       "Warm Heart \ud83d\udc9a",
       "Turf Carrier \ud83e\uddfa"
     ],
-    "avatar": "/assets/avatars/rusty.svg",
+    "avatar": "assets/avatars/rusty.svg",
     "verified": true,
     "matchProbability": 0.93,
     "chatPersonality": {
@@ -393,7 +393,7 @@ window.FALLBACK_DONKEYS = [
       "Polite \ud83c\udfa9",
       "Seaside Veteran \ud83c\udfd6\ufe0f"
     ],
-    "avatar": "/assets/avatars/winston.svg",
+    "avatar": "assets/avatars/winston.svg",
     "verified": true,
     "matchProbability": 0.89,
     "chatPersonality": {
@@ -434,7 +434,7 @@ window.FALLBACK_DONKEYS = [
       "Mountain Herbs \ud83c\udf3f",
       "Athletic \ud83c\udfc3"
     ],
-    "avatar": "/assets/avatars/gretel.svg",
+    "avatar": "assets/avatars/gretel.svg",
     "verified": true,
     "matchProbability": 0.87,
     "chatPersonality": {
@@ -475,7 +475,7 @@ window.FALLBACK_DONKEYS = [
       "Ancient Soul \ud83d\udcdc",
       "Master of Stillness \ud83d\uddff"
     ],
-    "avatar": "/assets/avatars/bartholomew.svg",
+    "avatar": "assets/avatars/bartholomew.svg",
     "verified": true,
     "matchProbability": 0.94,
     "chatPersonality": {

@@ -14,7 +14,7 @@
     "tagline": "Existential brayer with shaggy dreadlocks and a tender soul.",
     "bio": "Bonjour. I am a French Poitou with authentic dreadlocks (cadenettes). Some call it unkempt, I call it bohemian chic. Looking for an open-minded jenny who appreciates a 3 AM sonnet brayed into the misty valley. I won't pull carts on weekends—Sundays are reserved for existential contemplation and nibbling wild chamomile.",
     "tags": ["Poitou Royalty 👑", "Artistic Brayer 🎨", "Dreadlocks 🦁", "No Carts On Sundays 🛑", "Romantic 🍷"],
-    "avatar": "/assets/avatars/barnaby.svg",
+    "avatar": "assets/avatars/barnaby.svg",
     "verified": true,
     "matchProbability": 0.95,
     "chatPersonality": {
@@ -51,7 +51,7 @@
     "tagline": "32 inches of pure pocket dynamite. Steals hearts & orchard fruit.",
     "bio": "Short girl energy! I might only be 32 inches at the withers, but my personality fills the entire pasture. If you're looking for a submissive jenny, keep scrolling, bucko. I have escaped 4 different paddocks and I will steal the apple right out of your teeth. Seeking a gentle giant or fellow mini who can keep up with my sprint-zooms.",
     "tags": ["Miniature Dynamo ⚡", "Apple Burglar 🍏", "Zoomies Specialist 💨", "Flower In Ear 🌸", "Sassy 💅"],
-    "avatar": "/assets/avatars/penelope.svg",
+    "avatar": "assets/avatars/penelope.svg",
     "verified": true,
     "matchProbability": 0.88,
     "chatPersonality": {
@@ -87,7 +87,7 @@
     "tagline": "Passionate flamenco soul with award-winning 42cm aerodynamic ears.",
     "bio": "¡Hola, hermosa! Pure Andalusian lineage. My coat is the color of Spanish morning mist, and my stride has the fiery rhythm of the paso doble. I love romantic sunsets, sharing the mineral salt block, and holding eye contact for 20 minutes without blinking. Swipe right if you want a gentleman who will stand beside you through rain, drought, and sheep dogs.",
     "tags": ["Spanish Heartthrob 🌹", "42cm Ears 👂", "Flamenco Rhythm 💃", "Protective 🛡️", "Salt Lick Connoisseur 🧂"],
-    "avatar": "/assets/avatars/fernando.svg",
+    "avatar": "assets/avatars/fernando.svg",
     "verified": true,
     "matchProbability": 0.92,
     "chatPersonality": {
@@ -122,7 +122,7 @@
     "tagline": "Farm-girl sweetheart with a velvet nose and zero tolerance for coyotes.",
     "bio": "Simple country girl looking for a steadfast pasture partner. By day, I'm the official herd guardian—coyotes turn 180 degrees when they see my silhouette on the ridge. By evening, I'm the sweetest cuddler in the barn. I enjoy mutual grooming sessions, rolling in dry dirt dust baths, and napping under the big weeping willow.",
     "tags": ["Herd Guardian 🐺", "Velvet Muzzle ☁️", "Dust Bath Fanatic 🛁", "Straw Hat Chic 👒", "Sweetheart 🍯"],
-    "avatar": "/assets/avatars/daisy.svg",
+    "avatar": "assets/avatars/daisy.svg",
     "verified": true,
     "matchProbability": 0.90,
     "chatPersonality": {
@@ -157,7 +157,7 @@
     "tagline": "15.2 hands tall. Built like a freight train, smooth like molasses.",
     "bio": "George Washington bred my ancestors to build America, and I carry that legacy with pride. I stand 15.2 hands tall with an ear-span like a Boeing 737. People think big guys can't be gentle, but I tiptoe around baby chicks. Looking for someone confident who isn't intimidated by sheer equine mass. Aviators stay on during pastures.",
     "tags": ["Mammoth 🦣", "15.2 Hands Tall 🌲", "Aviator Sunglasses 😎", "Watermelon Smasher 🍉", "Gentle Giant 🧸"],
-    "avatar": "/assets/avatars/jasper.svg",
+    "avatar": "assets/avatars/jasper.svg",
     "verified": true,
     "matchProbability": 0.85,
     "chatPersonality": {
@@ -192,7 +192,7 @@
     "tagline": "Untamed desert wanderer. You can't fence what was born to roam.",
     "bio": "Adopted straight out of BLM canyon lands, but they haven't tamed an ounce of my spirit. I jump 4-foot gates if I see better shrubs on the other side. Red bandana, sharp instincts, and a fiery heart. Don't try to domesticate me; run beside me under the neon desert stars.",
     "tags": ["Wild Burro 🌵", "Fence Jumper 🤸", "Bandana Rebel 🤠", "Desert Queen 🏜️", "Zero Saddles 🚫"],
-    "avatar": "/assets/avatars/clementine.svg",
+    "avatar": "assets/avatars/clementine.svg",
     "verified": true,
     "matchProbability": 0.82,
     "chatPersonality": {
@@ -227,7 +227,7 @@
     "tagline": "Indie rock hinny. Refuses to fit in conventional horse/donkey boxes.",
     "bio": "Technically a hinny (my dad was a stallion, my mom was a jenny). Half horse, half donkey, 100% icon. I have subtle zebra stripes on my hocks and my bray transitions into a horse whinny midway through like an avant-garde jazz solo. Looking for a partner with eclectic taste in pasture flora.",
     "tags": ["Rare Hinny 🦄", "Zebra Stripes 🦓", "Indie Rock 🎸", "Avant-Garde Bray 🎺", "Keep Pastures Weird 🌈"],
-    "avatar": "/assets/avatars/ziggy.svg",
+    "avatar": "assets/avatars/ziggy.svg",
     "verified": false,
     "matchProbability": 0.91,
     "chatPersonality": {
@@ -262,7 +262,7 @@
     "tagline": "Sicilian drama queen with high standards and an unmistakable bray.",
     "bio": "Mamma mia! I have the distinct St. Andrew cross marking along my dorsal line and eyes that can melt the glaciers of Etna. If our date is 3 minutes late, I will inform the entire province through my vocal cords. Looking for an attentive jack who will pamper me with freshly sliced citrus and tell me my coat looks velvety every single morning.",
     "tags": ["Sicilian Elegance 🇮🇹", "High Maintenance 💅", "Cross Marking ✝️", "Citrus Lover 🍊", "Dramatic 🎭"],
-    "avatar": "/assets/avatars/bella.svg",
+    "avatar": "assets/avatars/bella.svg",
     "verified": true,
     "matchProbability": 0.86,
     "chatPersonality": {
@@ -297,7 +297,7 @@
     "tagline": "Warm-hearted Irish gent with a soul as deep as a Connemara peat bog.",
     "bio": "Top o' the morning to ye! Carried turf baskets through the green Irish hills in me youth, now happily semi-retired. I may have a few gray hairs around me muzzle, but me heart is full of laughter and warmth. If you need a steadfast friend who will stand by ye in the pouring Atlantic rain without shivering, I'm yer lad.",
     "tags": ["Irish Gentleman ☘️", "Reliable ⚓", "Rainproof 🌧️", "Warm Heart 💚", "Turf Carrier 🧺"],
-    "avatar": "/assets/avatars/rusty.svg",
+    "avatar": "assets/avatars/rusty.svg",
     "verified": true,
     "matchProbability": 0.93,
     "chatPersonality": {
@@ -332,7 +332,7 @@
     "tagline": "Proper British chap with a polished monocle and immaculate barn etiquette.",
     "bio": "Good day. Formerly of the illustrious Blackpool seaside promenade, now seeking a quiet meadow life with an educated companion. I believe in queueing orderly for the water trough, immaculate grooming before teatime, and never raising one's bray above a dignified mezzoforte unless the fox is in the hen house.",
     "tags": ["Aristocratic 🧐", "Monocle 🔍", "Afternoon Tea 🫖", "Polite 🎩", "Seaside Veteran 🏖️"],
-    "avatar": "/assets/avatars/winston.svg",
+    "avatar": "assets/avatars/winston.svg",
     "verified": true,
     "matchProbability": 0.89,
     "chatPersonality": {
@@ -367,7 +367,7 @@
     "tagline": "Fearless alpine climber. Sure-footed on 60-degree cliffs and dates.",
     "bio": "Hee-haw from 2,500 meters altitude! I wear a brass cowbell collar that rings in tune with the alpine wind. While ordinary horses slip on gravel trails, my nimble hooves are like suction cups. Looking for an adventurous hiking partner who isn't afraid of high altitudes or steep romantic ascents.",
     "tags": ["Alpine Climber 🧗", "Sure Footed 🏔️", "Brass Bell 🔔", "Mountain Herbs 🌿", "Athletic 🏃"],
-    "avatar": "/assets/avatars/gretel.svg",
+    "avatar": "assets/avatars/gretel.svg",
     "verified": true,
     "matchProbability": 0.87,
     "chatPersonality": {
@@ -402,7 +402,7 @@
     "tagline": "Zen master. Will stand completely motionless staring into the void for 6 hours.",
     "bio": "I have achieved equine enlightenment. While younger jacks run in frantic circles chasing butterflies, I have perfected the art of the 6-hour meditative standstill. I do not bray out of impatience; I bray only when the cosmic alignment demands it. Looking for a peaceful companion to share the silence with.",
     "tags": ["Zen Master 🧘", "100% Stubborn 🛑", "Deep Thinker 💭", "Ancient Soul 📜", "Master of Stillness 🗿"],
-    "avatar": "/assets/avatars/bartholomew.svg",
+    "avatar": "assets/avatars/bartholomew.svg",
     "verified": true,
     "matchProbability": 0.94,
     "chatPersonality": {
@@ -423,3 +423,4 @@
     }
   }
 ]
+

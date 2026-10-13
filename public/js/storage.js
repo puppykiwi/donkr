@@ -32,7 +32,7 @@ class DonkrStorage {
         stubbornnessPercent: 92,
         favoriteSnack: 'Crisp Carrots & Molasses Cubes 🥕',
         bio: 'Just an honest donkey looking for a trustworthy pasture partner. I enjoy standing in the shade, mutual back scratches, and braying at tractors.',
-        avatar: '/assets/avatars/user-default.svg',
+        avatar: 'assets/avatars/user-default.svg',
         verified: true,
         tags: ['Velvet Muzzle ☁️', 'Carrot Lover 🥕', 'Loyal 💚', 'Tractor Skeptic 🚜']
       };
@@ -280,3 +280,4 @@ class DonkrStorage {
 }
 
 window.DonkrStorage = new DonkrStorage();
+

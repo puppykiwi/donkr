@@ -111,3 +111,4 @@ assert(window.DonkrStorage.getDislikes().includes('donkey_rusty') === false, 'Ru
 console.log('✓ Rewind functionality passes.');
 
 console.log('\n ALL TESTS COMPLETED SUCCESSFULLY! ');
+

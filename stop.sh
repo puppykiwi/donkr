@@ -18,3 +18,4 @@ if [ -f "$PIDFILE" ]; then
 fi
 
 echo "Donkr Nginx is not currently running."
+

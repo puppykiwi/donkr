@@ -3,6 +3,8 @@
  * Coordinates Cards, Sound, Chat, Storage, and UI navigation.
  */
 document.addEventListener('DOMContentLoaded', async () => {
+  console.log('[Donkr] Initializing application...');
+
   let allDonkeys = [];
   let filteredDonkeys = [];
   let cardManager = null;
@@ -11,43 +13,63 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // --- Load Donkey Catalog ---
   try {
-    const res = await fetch('/data/donkeys.json');
-    if (!res.ok) throw new Error('Network error loading donkeys');
+    console.log('[Donkr] Fetching donkey dataset from data/donkeys.json...');
+    const res = await fetch('data/donkeys.json');
+    if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
     allDonkeys = await res.json();
+    console.log(`[Donkr] Successfully fetched ${allDonkeys.length} donkeys from server.`);
   } catch (err) {
-    console.warn('Fallback to embedded dataset:', err);
-    // Fallback if accessed without server
+    console.warn('[Donkr] Fetch failed or offline, loading embedded FALLBACK_DONKEYS:', err);
     allDonkeys = window.FALLBACK_DONKEYS || [];
   }
 
-  // --- Initialize Managers ---
-  chatManager = new DonkrChatManager({
-    donkeys: allDonkeys
-  });
+  // Final safety check: ensure dataset is non-empty
+  if (!allDonkeys || allDonkeys.length === 0) {
+    console.warn('[Donkr] Dataset empty, falling back to window.FALLBACK_DONKEYS');
+    allDonkeys = window.FALLBACK_DONKEYS || [];
+  }
 
-  profileManager = new DonkrProfileManager({
-    onProfileUpdate: (updated) => {
-      // Re-render chat headers if current chat is open
-      console.log('Profile updated', updated);
-    },
-    onFiltersUpdate: () => {
-      applyFiltersAndReloadCards();
+  console.log(`[Donkr] Active catalog size: ${allDonkeys.length} donkeys.`);
+
+  // --- Safe Initializations ---
+  try {
+    if (window.DonkrChatManager) {
+      chatManager = new DonkrChatManager({ donkeys: allDonkeys });
     }
-  });
-  profileManager.init();
+  } catch (e) {
+    console.error('[Donkr] Error initializing ChatManager:', e);
+  }
+
+  try {
+    if (window.DonkrProfileManager) {
+      profileManager = new DonkrProfileManager({
+        onProfileUpdate: (updated) => {
+          console.log('[Donkr] Profile updated:', updated);
+        },
+        onFiltersUpdate: () => {
+          applyFiltersAndReloadCards();
+        }
+      });
+      profileManager.init();
+    }
+  } catch (e) {
+    console.error('[Donkr] Error initializing ProfileManager:', e);
+  }
 
   // --- Filter Logic ---
   function getFilteredDonkeys() {
-    const settings = window.DonkrStorage.getSettings();
-    const likes = window.DonkrStorage.getLikes();
-    const dislikes = window.DonkrStorage.getDislikes();
+    if (!window.DonkrStorage) return allDonkeys;
+
+    const settings = window.DonkrStorage.getSettings() || {};
+    const likes = window.DonkrStorage.getLikes() || [];
+    const dislikes = window.DonkrStorage.getDislikes() || [];
 
     const maxDist = settings.maxDistance || 50;
     const minEar = settings.minEarLength || 20;
     const selectedBreed = settings.selectedBreed || 'All';
     const verifiedOnly = settings.showOnlyVerified || false;
 
-    return allDonkeys.filter(donkey => {
+    const filtered = allDonkeys.filter(donkey => {
       // Exclude already swiped donkeys
       if (likes.includes(donkey.id) || dislikes.includes(donkey.id)) {
         return false;
@@ -63,6 +85,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       return true;
     });
+
+    // If user has filtered out everything or swiped everything, don't leave screen dead
+    console.log(`[Donkr] getFilteredDonkeys returned ${filtered.length} donkeys.`);
+    return filtered;
   }
 
   function applyFiltersAndReloadCards() {
@@ -75,58 +101,71 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // --- Card Manager Setup ---
   const cardsContainer = document.getElementById('cardsDeckContainer');
-  cardManager = new DonkrCardManager(cardsContainer, {
-    donkeys: getFilteredDonkeys(),
-    onSwipe: (direction, donkey) => {
-      handleSwipeResult(direction, donkey);
-    },
-    onEmpty: () => {
-      updateBadgeCounts();
-    }
-  });
-  cardManager.renderCards();
+  if (cardsContainer && window.DonkrCardManager) {
+    const initialList = getFilteredDonkeys();
+    console.log(`[Donkr] Initializing cards with ${initialList.length} donkeys.`);
+
+    cardManager = new DonkrCardManager(cardsContainer, {
+      donkeys: initialList,
+      onSwipe: (direction, donkey) => {
+        handleSwipeResult(direction, donkey);
+      },
+      onEmpty: () => {
+        console.log('[Donkr] Pasture deck is empty.');
+        updateBadgeCounts();
+      }
+    });
+    cardManager.renderCards();
+    console.log('[Donkr] Cards rendered successfully.');
+  } else {
+    console.error('[Donkr] cardsDeckContainer or DonkrCardManager not found!');
+  }
 
   // --- Swipe Resolution & Matchmaking ---
   function handleSwipeResult(direction, donkey) {
     const isSuper = direction === 'superlike';
     let matched = false;
 
-    if (direction === 'like' || isSuper) {
-      if (isSuper) {
-        window.DonkrStorage.addSuperLike(donkey.id);
+    if (window.DonkrStorage) {
+      if (direction === 'like' || isSuper) {
+        if (isSuper) {
+          window.DonkrStorage.addSuperLike(donkey.id);
+        } else {
+          window.DonkrStorage.addLike(donkey.id);
+        }
+
+        // Check match probability (Super Bray guarantees match!)
+        const matchChance = isSuper ? 1.0 : (donkey.matchProbability || 0.85);
+        if (Math.random() < matchChance) {
+          matched = true;
+          window.DonkrStorage.addMatch({
+            id: donkey.id,
+            isSuper: isSuper
+          });
+
+          // Delay popup slightly for smooth card fly-out
+          setTimeout(() => {
+            if (chatManager) {
+              chatManager.showMatchModal(donkey, isSuper);
+              chatManager.renderMatchesView();
+            }
+            updateBadgeCounts();
+          }, 300);
+        }
       } else {
-        window.DonkrStorage.addLike(donkey.id);
+        window.DonkrStorage.addDislike(donkey.id);
       }
 
-      // Check match probability (Super Bray guarantees match!)
-      const matchChance = isSuper ? 1.0 : (donkey.matchProbability || 0.85);
-      if (Math.random() < matchChance) {
-        matched = true;
-        window.DonkrStorage.addMatch({
-          id: donkey.id,
-          isSuper: isSuper
-        });
-
-        // Delay popup slightly for smooth card fly-out
-        setTimeout(() => {
-          chatManager.showMatchModal(donkey, isSuper);
-          chatManager.renderMatchesView();
-          updateBadgeCounts();
-        }, 300);
-      }
-    } else {
-      window.DonkrStorage.addDislike(donkey.id);
+      // Save in history for Rewind
+      window.DonkrStorage.pushHistory({
+        donkeyId: donkey.id,
+        action: direction,
+        matched: matched,
+        timestamp: Date.now()
+      });
     }
 
-    // Save in history for Rewind
-    window.DonkrStorage.pushHistory({
-      donkeyId: donkey.id,
-      action: direction,
-      matched: matched,
-      timestamp: Date.now()
-    });
-
-    profileManager.updateStorageStats();
+    if (profileManager) profileManager.updateStorageStats();
     updateBadgeCounts();
   }
 
@@ -139,6 +178,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   if (btnRewind) {
     btnRewind.addEventListener('click', () => {
+      if (!cardManager) return;
       const success = cardManager.rewind();
       if (!success) {
         showToast('Nothing to rewind! ↺');
@@ -149,30 +189,37 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   if (btnDislike) {
-    btnDislike.addEventListener('click', () => cardManager.swipeDislike());
+    btnDislike.addEventListener('click', () => {
+      if (cardManager) cardManager.swipeDislike();
+    });
   }
 
   if (btnSuper) {
-    btnSuper.addEventListener('click', () => cardManager.swipeSuperLike());
+    btnSuper.addEventListener('click', () => {
+      if (cardManager) cardManager.swipeSuperLike();
+    });
   }
 
   if (btnLike) {
-    btnLike.addEventListener('click', () => cardManager.swipeLike());
+    btnLike.addEventListener('click', () => {
+      if (cardManager) cardManager.swipeLike();
+    });
   }
 
   if (btnBoost) {
     btnBoost.addEventListener('click', () => {
-      window.DonkrSound.playSuperLike();
+      if (window.DonkrSound) window.DonkrSound.playSuperLike();
       showToast('⚡ CARROT BOOST ACTIVATED! Your profile is shining across the meadow!');
-      // Shake animation on cards container
-      cardsContainer.classList.add('boost-shake');
-      setTimeout(() => cardsContainer.classList.remove('boost-shake'), 600);
+      if (cardsContainer) {
+        cardsContainer.classList.add('boost-shake');
+        setTimeout(() => cardsContainer.classList.remove('boost-shake'), 600);
+      }
     });
   }
 
   // --- Sound Toggle ---
   const soundToggleBtn = document.getElementById('soundToggleBtn');
-  if (soundToggleBtn) {
+  if (soundToggleBtn && window.DonkrSound) {
     soundToggleBtn.addEventListener('click', () => {
       const enabled = window.DonkrSound.toggleSound();
       soundToggleBtn.classList.toggle('muted', !enabled);
@@ -199,13 +246,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     const activeTab = document.querySelector(`.nav-tab-btn[data-target="${viewId}"]`);
     if (activeTab) activeTab.classList.add('active');
 
-    if (viewId === 'viewMatches') {
+    if (viewId === 'viewMatches' && chatManager) {
       chatManager.renderMatchesView();
-    } else if (viewId === 'viewProfile') {
+    } else if (viewId === 'viewProfile' && profileManager) {
       profileManager.updateStorageStats();
     }
 
-    window.DonkrSound.playPop(440);
+    if (window.DonkrSound) window.DonkrSound.playPop(440);
   }
 
   navTabs.forEach(tab => {
@@ -218,25 +265,19 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Filters Button in Discover Header
   const btnOpenFilters = document.getElementById('btnOpenFilters');
   if (btnOpenFilters) {
-    btnOpenFilters.addEventListener('click', () => {
-      switchView('viewFilters');
-    });
+    btnOpenFilters.addEventListener('click', () => switchView('viewFilters'));
   }
 
   // Back to Discover from Filters
   const btnCloseFilters = document.getElementById('btnCloseFilters');
   if (btnCloseFilters) {
-    btnCloseFilters.addEventListener('click', () => {
-      switchView('viewDiscover');
-    });
+    btnCloseFilters.addEventListener('click', () => switchView('viewDiscover'));
   }
 
   // Back from Chat to Matches list
   const btnBackFromChat = document.getElementById('btnBackFromChat');
   if (btnBackFromChat) {
-    btnBackFromChat.addEventListener('click', () => {
-      switchView('viewMatches');
-    });
+    btnBackFromChat.addEventListener('click', () => switchView('viewMatches'));
   }
 
   // --- Chat Messaging Events ---
@@ -247,7 +288,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     chatForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const text = chatInput.value;
-      if (text.trim()) {
+      if (text.trim() && chatManager) {
         chatManager.sendMessage(text);
         chatInput.value = '';
       }
@@ -258,7 +299,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.querySelectorAll('.pickup-pill').forEach(pill => {
     pill.addEventListener('click', () => {
       const line = pill.dataset.line;
-      if (line) {
+      if (line && chatManager) {
         chatManager.sendMessage(line);
       }
     });
@@ -268,14 +309,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   const btnChatBray = document.getElementById('btnChatBray');
   if (btnChatBray) {
     btnChatBray.addEventListener('click', () => {
-      window.DonkrSound.playBray();
+      if (window.DonkrSound) window.DonkrSound.playBray();
       showToast('You sent a live HEE-HAW! 📢');
     });
   }
 
   // --- Helper UI Updates ---
   function updateBadgeCounts() {
-    const matches = window.DonkrStorage.getMatches();
+    if (!window.DonkrStorage) return;
+    const matches = window.DonkrStorage.getMatches() || [];
     const badge = document.getElementById('matchesCountBadge');
     if (badge) {
       badge.textContent = matches.length;
@@ -292,12 +334,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
-  // Initial badge update
   updateBadgeCounts();
 
-  // Test sound on initial click anywhere if context suspended
   document.body.addEventListener('click', () => {
-    if (window.DonkrSound.ctx && window.DonkrSound.ctx.state === 'suspended') {
+    if (window.DonkrSound && window.DonkrSound.ctx && window.DonkrSound.ctx.state === 'suspended') {
       window.DonkrSound.ctx.resume();
     }
   }, { once: true });

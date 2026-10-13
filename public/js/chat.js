@@ -26,7 +26,7 @@ class DonkrChatManager {
     window.DonkrSound.playMatchFanfare();
 
     modal.querySelector('#matchedDonkeyName').textContent = donkey.name;
-    modal.querySelector('#matchedUserImg').src = userProfile.avatar || '/assets/avatars/user-default.svg';
+    modal.querySelector('#matchedUserImg').src = userProfile.avatar || 'assets/avatars/user-default.svg';
     modal.querySelector('#matchedDonkeyImg').src = donkey.avatar;
     modal.querySelector('#matchSubtext').textContent = isSuper
       ? `You sent a Super Bray and ${donkey.name} brayed back with joy!`
@@ -312,3 +312,4 @@ class DonkrChatManager {
 }
 
 window.DonkrChatManager = DonkrChatManager;
+
