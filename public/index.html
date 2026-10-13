@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Donkr — The #1 Dating App for Donkeys</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/logo.svg">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <div class="donkr-app-container">
+    
+    <!-- Toast Notification -->
+    <div class="donkr-toast" id="toastNotification">Welcome to Donkr! 🥕</div>
+
+    <!-- App Header -->
+    <header class="app-header">
+      <div class="brand-wrapper" id="brandHeader">
+        <img src="/assets/logo.svg" alt="Donkr Logo" class="brand-logo-img" />
+        <span class="brand-title">donkr</span>
+      </div>
+
+      <div class="header-actions">
+        <!-- Sound Toggle -->
+        <button class="header-btn" id="soundToggleBtn" title="Toggle Bray & Chime Sounds" aria-label="Toggle Sound">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+          </svg>
+        </button>
+
+        <!-- Discovery Filters -->
+        <button class="header-btn" id="btnOpenFilters" title="Pasture Filter Preferences" aria-label="Filter Preferences">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="4" y1="21" x2="4" y2="14"></line>
+            <line x1="4" y1="10" x2="4" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12" y2="3"></line>
+            <line x1="20" y1="21" x2="20" y2="16"></line>
+            <line x1="20" y1="12" x2="20" y2="3"></line>
+            <line x1="1" y1="14" x2="7" y2="14"></line>
+            <line x1="9" y1="8" x2="15" y2="8"></line>
+            <line x1="17" y1="16" x2="23" y2="16"></line>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- App Viewport (Dynamic Screens) -->
+    <main class="app-views-viewport">
+      
+      <!-- ==============================================
+           VIEW: DISCOVER / CARDS DECK
+           ============================================== -->
+      <section class="app-view active" id="viewDiscover">
+        <!-- Tinder Card Stack Container -->
+        <div class="cards-deck-container" id="cardsDeckContainer">
+          <!-- Rendered dynamically by DonkrCardManager -->
+        </div>
+
+        <!-- Action Buttons Bar -->
+        <div class="action-controls-bar">
+          <!-- Rewind -->
+          <button class="action-btn btn-small btn-rewind" id="btnActionRewind" title="Rewind Previous Donkey" aria-label="Rewind">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="1 4 1 10 7 10"></polyline>
+              <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+            </svg>
+          </button>
+
+          <!-- Dislike / Nope -->
+          <button class="action-btn btn-large btn-dislike" id="btnActionDislike" title="Nope / Stubborn" aria-label="Dislike">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+
+          <!-- Super Bray -->
+          <button class="action-btn btn-small btn-super" id="btnActionSuper" title="Super Bray ⭐" aria-label="Super Bray">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+          </button>
+
+          <!-- Like / Hee-Haw -->
+          <button class="action-btn btn-large btn-like" id="btnActionLike" title="Hee-Haw Like 💚" aria-label="Like">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+            </svg>
+          </button>
+
+          <!-- Boost -->
+          <button class="action-btn btn-small btn-boost" id="btnActionBoost" title="Carrot Boost ⚡" aria-label="Carrot Boost">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- ==============================================
+           VIEW: MATCHES & CHATS
+           ============================================== -->
+      <section class="app-view" id="viewMatches">
+        <!-- New Matches Carousel -->
+        <div class="matches-carousel-wrapper">
+          <div class="section-header-title">New Blares & Matches</div>
+          <div class="matches-carousel" id="matchesCarousel">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <!-- Chat Threads -->
+        <div class="chat-threads-container">
+          <div class="section-header-title">Pasture Conversations</div>
+          <div class="message-threads-list" id="messageThreadsList">
+            <!-- Dynamically populated -->
+          </div>
+
+          <!-- Empty State -->
+          <div class="empty-matches-state" id="emptyMatchesState">
+            <div class="empty-matches-icon">🐴💬</div>
+            <h3>No Matches Yet</h3>
+            <p>Keep swiping right on donkeys that catch your eye! When they bray back, they will appear here.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==============================================
+           VIEW: CHAT ROOM
+           ============================================== -->
+      <section class="app-view" id="viewChatRoom">
+        <!-- Chat Header -->
+        <div class="chat-room-header">
+          <button class="btn-back-chat" id="btnBackFromChat" aria-label="Back to Matches">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+          </button>
+
+          <div class="chat-partner-info">
+            <img src="" id="chatHeaderAvatar" class="chat-partner-avatar" alt="Partner Avatar" />
+            <div class="chat-partner-meta">
+              <span class="chat-partner-name" id="chatHeaderName">Donkey</span>
+              <span class="chat-partner-subtitle" id="chatHeaderSubtitle">Active in pasture</span>
+            </div>
+          </div>
+
+          <button class="btn-live-bray" id="btnChatBray" title="Send a Live HEE-HAW Bray">
+            <span>📢 Bray</span>
+          </button>
+        </div>
+
+        <!-- Messages Scroll Area -->
+        <div class="chat-messages-scroll" id="chatMessagesContainer">
+          <!-- Dynamic bubbles -->
+        </div>
+
+        <!-- Quick Pickup Lines Drawer -->
+        <div class="chat-pickup-drawer">
+          <div class="pickup-title">Carrot Lines 🥕 (Tap to send)</div>
+          <div class="pickup-pills-row">
+            <div class="pickup-pill" data-line="Are you an electric fence? Because you just shocked my heart! ⚡">Electric fence? ⚡</div>
+            <div class="pickup-pill" data-line="Did you fall from the hayloft? Because you're looking like fine sweet clover! 🌾">Hayloft angel 🌾</div>
+            <div class="pickup-pill" data-line="My ears perked up 40cm the second you trotted into my pasture! 👂">40cm ears 👂</div>
+            <div class="pickup-pill" data-line="Mind if I share that Himalayan salt block with you under the moonlight? 🧂">Share salt lick? 🧂</div>
+            <div class="pickup-pill" data-line="Hee-hawww! You're sweeter than fresh molasses grain 🍯">Molasses grain 🍯</div>
+          </div>
+        </div>
+
+        <!-- Chat Input Bar -->
+        <div class="chat-input-bar">
+          <form class="chat-input-form" id="chatInputForm">
+            <input type="text" class="chat-text-input" id="chatTextInput" placeholder="Bray something sweet..." autocomplete="off" />
+            <button type="submit" class="btn-send-message" aria-label="Send">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- ==============================================
+           VIEW: USER PROFILE & STATIC STORAGE SETTINGS
+           ============================================== -->
+      <section class="app-view" id="viewProfile">
+        <!-- Profile Preview Card -->
+        <div class="profile-card-preview">
+          <img src="/assets/avatars/user-default.svg" id="profilePreviewAvatar" class="profile-avatar-large" alt="My Profile Avatar" />
+          <div class="profile-preview-meta">
+            <div class="preview-name-row">
+              <span class="preview-name" id="profilePreviewName">Barnaby Jr.</span>
+              <span class="preview-age" id="profilePreviewAge">5</span>
+            </div>
+            <div class="preview-breed" id="profilePreviewBreed">Standard Donkey</div>
+            <div class="preview-stats-bar">
+              <span class="stat-pill" title="Ear Length">👂 <span id="profilePreviewEars">37 cm</span></span>
+              <span class="stat-pill" title="Bray Volume">📢 <span id="profilePreviewBray">98 dB</span></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Edit Profile Form -->
+        <div class="settings-section-card">
+          <h3 class="section-title">Edit Donkey Persona</h3>
+          <form id="formEditProfile">
+            <div class="form-group">
+              <label for="inputProfileName">Donkey Name</label>
+              <input type="text" id="inputProfileName" class="form-input" required />
+            </div>
+
+            <div class="form-group">
+              <label for="inputProfileAge">Age (Years)</label>
+              <input type="number" id="inputProfileAge" class="form-input" min="1" max="30" required />
+            </div>
+
+            <div class="form-group">
+              <label for="selectProfileGender">Equine Gender</label>
+              <select id="selectProfileGender" class="form-select">
+                <option value="Jack">Jack (Male)</option>
+                <option value="Jenny">Jenny (Female)</option>
+                <option value="Hinny">Hinny (Equine Hybrid)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="selectProfileBreed">Donkey Breed</label>
+              <select id="selectProfileBreed" class="form-select">
+                <option value="Standard American Donkey">Standard American Donkey</option>
+                <option value="Poitou Donkey">French Poitou Donkey</option>
+                <option value="Miniature Mediterranean">Miniature Mediterranean Donkey</option>
+                <option value="Andalusian Burro">Andalusian Burro</option>
+                <option value="Mammoth Jackstock">Mammoth Jackstock</option>
+                <option value="Wild Burro">Wild Desert Burro</option>
+                <option value="Sicilian Donkey">Sicilian Donkey</option>
+                <option value="Irish Pack Donkey">Irish Pack Donkey</option>
+                <option value="English Heritage Donkey">English Heritage Donkey</option>
+                <option value="Alpine Brousse">Alpine Brousse</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="inputProfileLocation">Pasture / Location</label>
+              <input type="text" id="inputProfileLocation" class="form-input" />
+            </div>
+
+            <div class="form-group">
+              <label for="inputProfileSnack">Favorite Snack</label>
+              <input type="text" id="inputProfileSnack" class="form-input" />
+            </div>
+
+            <div class="form-group">
+              <label for="inputProfileBio">Donkey Bio / Tagline</label>
+              <textarea id="inputProfileBio" class="form-textarea" rows="3"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>Ear Length: <span id="valProfileEarLength">37 cm</span></label>
+              <input type="range" id="inputProfileEarLength" class="form-range" min="20" max="50" value="37" />
+            </div>
+
+            <div class="form-group">
+              <label>Bray Pitch / Volume: <span id="valProfileBrayVolume">98 dB</span></label>
+              <input type="range" id="inputProfileBrayVolume" class="form-range" min="80" max="120" value="98" />
+            </div>
+
+            <!-- Avatar Selector -->
+            <div class="form-group">
+              <label>Choose Avatar Style</label>
+              <div class="avatar-selection-grid">
+                <button type="button" class="avatar-choice-btn selected" data-avatar="/assets/avatars/user-default.svg" title="Dapper Bowtie">
+                  <img src="/assets/avatars/user-default.svg" alt="Default" />
+                </button>
+                <button type="button" class="avatar-choice-btn" data-avatar="/assets/avatars/fernando.svg" title="Spanish Rose">
+                  <img src="/assets/avatars/fernando.svg" alt="Fernando" />
+                </button>
+                <button type="button" class="avatar-choice-btn" data-avatar="/assets/avatars/penelope.svg" title="Daisy Flower">
+                  <img src="/assets/avatars/penelope.svg" alt="Penelope" />
+                </button>
+                <button type="button" class="avatar-choice-btn" data-avatar="/assets/avatars/barnaby.svg" title="French Beret & Dreads">
+                  <img src="/assets/avatars/barnaby.svg" alt="Barnaby" />
+                </button>
+                <button type="button" class="avatar-choice-btn" data-avatar="/assets/avatars/jasper.svg" title="Cool Sunglasses">
+                  <img src="/assets/avatars/jasper.svg" alt="Jasper" />
+                </button>
+                <button type="button" class="avatar-choice-btn" data-avatar="/assets/avatars/daisy.svg" title="Straw Hat">
+                  <img src="/assets/avatars/daisy.svg" alt="Daisy" />
+                </button>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-primary-action">Save Donkey Persona</button>
+          </form>
+        </div>
+
+        <!-- Static Storage Footprint & Data Controls -->
+        <div class="settings-section-card">
+          <h3 class="section-title">Static Storage & Data</h3>
+          <div class="storage-stats-box" id="storageStatsText">
+            Static LocalStorage: Calculating...
+          </div>
+          <div class="data-management-actions">
+            <button type="button" class="btn-secondary-action" id="btnExportData">Export JSON</button>
+            <button type="button" class="btn-danger-action" id="btnResetAllData">Clear Memory</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==============================================
+           VIEW: FILTERS
+           ============================================== -->
+      <section class="app-view" id="viewFilters">
+        <div class="filters-header">
+          <button class="btn-close-filters" id="btnCloseFilters" aria-label="Close Filters">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+          </button>
+          <span class="filters-title">Pasture Preferences</span>
+        </div>
+
+        <div class="settings-section-card">
+          <form id="formDiscoveryFilters">
+            <div class="form-group">
+              <label>Maximum Distance: <span id="valFilterDistance">25 miles</span></label>
+              <input type="range" id="filterDistance" class="form-range" min="5" max="50" value="25" />
+            </div>
+
+            <div class="form-group">
+              <label>Minimum Ear Length: <span id="valFilterEarLength">25 cm</span></label>
+              <input type="range" id="filterEarLength" class="form-range" min="20" max="45" value="25" />
+            </div>
+
+            <div class="form-group">
+              <label for="filterBreed">Preferred Breed</label>
+              <select id="filterBreed" class="form-select">
+                <option value="All">All Breeds</option>
+                <option value="Poitou Donkey">Poitou Donkey</option>
+                <option value="Miniature Mediterranean">Miniature Mediterranean</option>
+                <option value="Andalusian Burro">Andalusian Burro</option>
+                <option value="Standard American Donkey">Standard American Donkey</option>
+                <option value="Mammoth Jackstock">Mammoth Jackstock</option>
+                <option value="Wild Burro">Wild Burro</option>
+                <option value="Sicilian Donkey">Sicilian Donkey</option>
+                <option value="Irish Pack Donkey">Irish Pack Donkey</option>
+                <option value="English Heritage Donkey">English Heritage Donkey</option>
+                <option value="Alpine Brousse">Alpine Brousse</option>
+                <option value="Ancient Wisdom Donkey">Ancient Wisdom Donkey</option>
+              </select>
+            </div>
+
+            <div class="form-group" style="display: flex; align-items: center; justify-content: space-between; margin-top: 10px;">
+              <label for="filterVerifiedOnly" style="margin-bottom: 0; cursor: pointer;">Verified Donkeys Only</label>
+              <input type="checkbox" id="filterVerifiedOnly" style="width: 20px; height: 20px; accent-color: var(--primary);" />
+            </div>
+
+            <button type="submit" class="btn-primary-action" style="margin-top: 20px;">Apply Pasture Filters</button>
+          </form>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+      <!-- Discover Tab -->
+      <button class="nav-tab-btn active" data-target="viewDiscover" aria-label="Discover">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M12 2C6.5 2 2 6.5 2 12c0 3.5 1.8 6.6 4.6 8.4L6 22l4-1.5c.6.2 1.3.3 2 .3 5.5 0 10-4.5 10-10S17.5 2 12 2z"></path>
+          <path d="M8.5 10a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
+          <path d="M15.5 10a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"></path>
+        </svg>
+        <span class="nav-label">Pasture</span>
+      </button>
+
+      <!-- Matches Tab -->
+      <button class="nav-tab-btn" data-target="viewMatches" aria-label="Matches and Chats">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+        <span class="nav-label">Matches</span>
+        <span class="nav-badge" id="matchesCountBadge" style="display: none;">0</span>
+      </button>
+
+      <!-- Profile Tab -->
+      <button class="nav-tab-btn" data-target="viewProfile" aria-label="My Profile">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+        <span class="nav-label">Profile</span>
+      </button>
+    </nav>
+
+  </div>
+
+  <!-- ==============================================
+       MODAL: IT'S A HEE-HAW MATCH!
+       ============================================== -->
+  <div class="match-modal-overlay" id="matchModal">
+    <div class="match-confetti-container" id="confettiContainer"></div>
+    <div class="match-modal-card">
+      <h2 class="match-title-gradient">IT'S A HEE-HAW!</h2>
+      <p class="match-subtext" id="matchSubtext">You and <strong id="matchedDonkeyName">Daisy</strong> brayed at each other!</p>
+
+      <div class="match-avatars-pair">
+        <img src="/assets/avatars/user-default.svg" id="matchedUserImg" class="avatar-circle-match avatar-user-match" alt="You" />
+        <div class="heart-center-pulse">💚</div>
+        <img src="" id="matchedDonkeyImg" class="avatar-circle-match avatar-donkey-match" alt="Match" />
+      </div>
+
+      <div class="match-modal-buttons">
+        <button class="btn-match-chat" id="btnMatchChat">Send a Bray 📢</button>
+        <button class="btn-match-browsing" id="btnMatchKeepBrowsing">Keep Grazing 🌾</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/js/sound.js"></script>
+  <script src="/js/storage.js"></script>
+  <script src="/js/cards.js"></script>
+  <script src="/js/chat.js"></script>
+  <script src="/js/profile.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

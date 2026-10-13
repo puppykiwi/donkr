@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8E24AA" />
+      <stop offset="100%" stop-color="#4A148C" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-opacity="0.25"/>
+    </filter>
+    <linearGradient id="earInnerGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#BCAAA4" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#BCAAA4" stop-opacity="0.6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background Circle / Card -->
+  <rect width="400" height="400" fill="url(#bgGrad)" />
+  <circle cx="200" cy="200" r="180" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="6"/>
+
+  <!-- Neck and Shoulders -->
+  <path d="M120 400 C120 300 130 250 160 220 L240 220 C270 250 280 300 280 400 Z" fill="#4E342E" />
+  <path d="M185 240 L215 240 L220 400 L180 400 Z" fill="#D7CCC8" opacity="0.6"/>
+
+  <!-- Left Ear -->
+  <g transform="rotate(-15, 145, 140)">
+    <path d="M145 150 C125 110 90 20 135 15 C175 12 170 100 160 150 Z" fill="#4E342E" filter="url(#shadow)"/>
+    <path d="M145 130 C132 100 110 35 137 30 C162 26 158 90 152 130 Z" fill="url(#earInnerGrad)"/>
+    <!-- Tufts inside ear -->
+    <path d="M136 60 Q142 65 140 75 M134 85 Q143 88 138 98" stroke="rgba(255,255,255,0.4)" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <!-- Right Ear -->
+  <g transform="rotate(15, 255, 140)">
+    <path d="M255 150 C275 110 310 20 265 15 C225 12 230 100 240 150 Z" fill="#4E342E" filter="url(#shadow)"/>
+    <path d="M255 130 C268 100 290 35 263 30 C238 26 242 90 248 130 Z" fill="url(#earInnerGrad)"/>
+    <!-- Tufts inside ear -->
+    <path d="M264 60 Q258 65 260 75 M266 85 Q257 88 262 98" stroke="rgba(255,255,255,0.4)" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <!-- Mane / Hairstyle -->
+  <path d="M175 130 Q200 100 225 130 Q215 170 200 160 Q185 170 175 130 Z" fill="#271810"/>
+  <path d="M190 95 L200 140 L210 95 L205 135 Z" fill="#271810"/>
+
+  <!-- Dreadlocks -->
+  <g fill="#271810" stroke="#3E2723" stroke-width="2">
+    <path d="M165 105 C155 150 145 190 155 220 C160 190 175 160 175 115 Z"/>
+    <path d="M235 105 C245 150 255 190 245 220 C240 190 225 160 225 115 Z"/>
+    <path d="M185 90 C180 140 170 180 180 210 C190 180 195 140 190 90 Z"/>
+    <path d="M215 90 C220 140 230 180 220 210 C210 180 205 140 215 90 Z"/>
+    <path d="M195 80 C195 130 198 170 202 215 C205 170 205 130 195 80 Z"/>
+  </g>
+
+  <!-- Donkey Head Base -->
+  <path d="M150 170 C140 200 140 260 160 280 C170 290 230 290 240 280 C260 260 260 200 250 170 C240 130 160 130 150 170 Z" fill="#4E342E" filter="url(#shadow)"/>
+  
+  <!-- Forehead highlight / star -->
+  <circle cx="200" cy="165" r="8" fill="rgba(255,255,255,0.3)" />
+
+  <!-- Eyes -->
+
+  <!-- Big Warm Donkey Eyes -->
+  <ellipse cx="165" cy="180" rx="10" ry="12" fill="#212121"/>
+  <circle cx="163" cy="176" r="4" fill="#FFFFFF"/>
+  <ellipse cx="235" cy="180" rx="10" ry="12" fill="#212121"/>
+  <circle cx="233" cy="176" r="4" fill="#FFFFFF"/>
+  <!-- Eyebrows -->
+  <path d="M155 165 Q165 160 175 165" stroke="#3E2723" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <path d="M225 165 Q235 160 245 165" stroke="#3E2723" stroke-width="3" stroke-linecap="round" fill="none"/>
+
+  <!-- Donkey Muzzle (White/Light soft velvet nose) -->
+  <path d="M152 230 C150 210 250 210 248 230 C255 265 240 310 200 310 C160 310 145 265 152 230 Z" fill="#D7CCC8" filter="url(#shadow)"/>
+  
+  <!-- Nostrils -->
+  <ellipse cx="178" cy="265" rx="7" ry="11" transform="rotate(-15, 178, 265)" fill="#3E2723"/>
+  <ellipse cx="222" cy="265" rx="7" ry="11" transform="rotate(15, 222, 265)" fill="#3E2723"/>
+  
+  <!-- Cute smile -->
+  <path d="M185 285 Q200 295 215 285" stroke="#3E2723" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <!-- Gentle chin cleft -->
+  <path d="M198 298 Q200 304 202 298" stroke="rgba(0,0,0,0.15)" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- French Beret -->
+  <g transform="translate(195, 95) rotate(-12)">
+    <ellipse cx="0" cy="10" rx="65" ry="24" fill="#263238" filter="url(#shadow)"/>
+    <path d="M-45 10 C-30 -15 30 -15 45 10 Z" fill="#37474F"/>
+    <circle cx="0" cy="-12" r="4" fill="#263238"/>
+  </g>
+
+</svg>

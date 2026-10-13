@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+  <defs>
+    <linearGradient id="flameGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF512F" />
+      <stop offset="50%" stop-color="#FF7043" />
+      <stop offset="100%" stop-color="#FFA000" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#FF512F" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+  <!-- Flame Base -->
+  <path d="M50 5 C60 25 78 40 78 62 C78 78 65 92 50 92 C35 92 22 78 22 62 C22 45 35 30 45 18 C46 28 52 35 55 35 C58 35 56 25 50 5 Z" fill="url(#flameGrad)" filter="url(#glow)"/>
+  <!-- Donkey Ear Silhouette Cuts inside flame -->
+  <path d="M42 45 C38 32 30 18 36 15 C42 12 45 28 46 42 Z" fill="#FFFFFF" opacity="0.95"/>
+  <path d="M58 45 C62 32 70 18 64 15 C58 12 55 28 54 42 Z" fill="#FFFFFF" opacity="0.95"/>
+  <!-- Cute little donkey nose curve -->
+  <circle cx="50" cy="72" r="5" fill="#FFFFFF" opacity="0.9"/>
+  <ellipse cx="48" cy="72" rx="1" ry="1.5" fill="#FF512F"/>
+  <ellipse cx="52" cy="72" rx="1" ry="1.5" fill="#FF512F"/>
+</svg>
